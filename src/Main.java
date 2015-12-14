@@ -54,21 +54,21 @@ public class Main  {
             System.out.println();
             robot.mouseMove((int) gazeData.smoothedCoordinates.x, (int) gazeData.smoothedCoordinates.y);
 
-            if (gazeData.leftEye.pupilSize == 0 && gazeData.rightEye.pupilSize != 0) {
+            if (leftEyeBlink(gazeData.leftEye.pupilSize) && !rightEyeBlink(gazeData.rightEye.pupilSize)) {
                 robot.mousePress(InputEvent.BUTTON1_MASK);
                 robot.delay(500); // second
                 robot.mouseRelease(InputEvent.BUTTON1_MASK);
             }
 
-            if (gazeData.leftEye.pupilSize == 0 && gazeData.rightEye.pupilSize == 0) {
-                Timer timer = new Timer(3000, new ActionListener() {
+            if (leftEyeBlink(gazeData.leftEye.pupilSize) && rightEyeBlink(gazeData.rightEye.pupilSize)) {
+                Timer timer = new Timer(500, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (gazeData.leftEye.pupilSize == 0 && gazeData.rightEye.pupilSize == 0) {
-                            System.exit(0);
-                        }
+                        System.exit(0);
+
                     }
                 });
+                
 
                 timer.setRepeats(false);
                 timer.start();
@@ -77,6 +77,14 @@ public class Main  {
 
 
         }
+    }
+
+    public static boolean rightEyeBlink(double rightEyePubilSize) {
+        return rightEyePubilSize == 0;
+    }
+
+    public static boolean leftEyeBlink(double leftEyePubilSize) {
+        return leftEyePubilSize == 0;
     }
 
 

@@ -60,6 +60,12 @@ public class Main  {
                 robot.mouseRelease(InputEvent.BUTTON1_MASK);
             }
 
+            closeApplication(gazeData);
+
+
+        }
+
+        private void closeApplication(GazeData gazeData) {
             if (leftEyeBlink(gazeData.leftEye.pupilSize) && rightEyeBlink(gazeData.rightEye.pupilSize)) {
                 Timer timer = new Timer(500, new ActionListener() {
                     @Override
@@ -68,24 +74,24 @@ public class Main  {
 
                     }
                 });
-                
+
 
                 timer.setRepeats(false);
                 timer.start();
             }
-
-
-
         }
+
+        public boolean rightEyeBlink(double rightEyePubilSize) {
+            return rightEyePubilSize == 0;
+        }
+
+        public boolean leftEyeBlink(double leftEyePubilSize) {
+            return leftEyePubilSize == 0;
+        }
+
     }
 
-    public static boolean rightEyeBlink(double rightEyePubilSize) {
-        return rightEyePubilSize == 0;
-    }
 
-    public static boolean leftEyeBlink(double leftEyePubilSize) {
-        return leftEyePubilSize == 0;
-    }
 
 
 }
